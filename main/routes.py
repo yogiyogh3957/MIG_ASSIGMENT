@@ -12,8 +12,11 @@ full_of_time = x.strftime('%c')
 from main import app, db, jwt_app
 
 import redis
+# jwt_redis_blocklist = redis.StrictRedis(
+#     host="localhost", port=6379, db=0, decode_responses=True
+# )
 jwt_redis_blocklist = redis.StrictRedis(
-    host="mig-service.herokuapp.com", port=6379, db=0, decode_responses=True
+    host="redis-14313.c239.us-east-1-2.ec2.cloud.redislabs.com", port=14313, db=0, decode_responses=True, password='WUfXdziRszDKEcZHMN5iOVMcoZgI6j5s'
 )
 
 @jwt_app.token_in_blocklist_loader

@@ -13,7 +13,7 @@ from main import app, db, jwt_app
 
 import redis
 jwt_redis_blocklist = redis.StrictRedis(
-    host="localhost", port=6379, db=0, decode_responses=True
+    host="mig-service.herokuapp.com", port=6379, db=0, decode_responses=True
 )
 
 @jwt_app.token_in_blocklist_loader

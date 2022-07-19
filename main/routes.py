@@ -1,5 +1,5 @@
 from main.models import AuthModel, ActivityModel
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, render_template
 from main.config import Config_app
 from flask_jwt_extended import get_jwt_identity, jwt_required, current_user, create_access_token, get_jwt
 
@@ -12,9 +12,6 @@ full_of_time = x.strftime('%c')
 from main import app, db, jwt_app
 
 import redis
-# jwt_redis_blocklist = redis.StrictRedis(
-#     host="localhost", port=6379, db=0, decode_responses=True
-# )
 jwt_redis_blocklist = redis.StrictRedis(
     host="redis-14313.c239.us-east-1-2.ec2.cloud.redislabs.com", port=14313, db=0, decode_responses=True, password='WUfXdziRszDKEcZHMN5iOVMcoZgI6j5s'
 )
@@ -33,6 +30,10 @@ def user_identity_lookup(user):
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
     return AuthModel.query.filter_by(id=identity).one_or_none()
+
+@app.route('/home')
+def home():
+    return render_template("index.html")
 
 @app.route('/api/register', methods=['POST'])
 def signup_user():
